@@ -12,17 +12,25 @@ public class Deck {
     String[] special = {"King","Queen","Jack"};
     String[] Deck;
     int index = 0;
+    int cardsDealt = 0;
 
     public void getDeck() {
         for (String val:Deck){
             System.out.println(val);
         }
     }
+    public String getDeckItem(int i){
+        return Deck[i];
+    }
+
+    public int getCardsDealt() {
+        return cardsDealt;
+    }
 
     public Deck(){
-        index = 0;
+        this.index = 0;
         this.Deck = new String[52];
-
+        this.cardsDealt = 0;
         //add vals for each suit
 
         for (int val:values){
@@ -44,6 +52,25 @@ public class Deck {
         //shuffle
         Collections.shuffle(Arrays.asList(Deck));
 
+    }
+
+    public void dealNineCards(){
+        int rowCount = 0;
+        for (int i = cardsDealt+9; cardsDealt < i; cardsDealt++){
+//            System.out.println(cardsDealt);
+            try{
+
+                if ((rowCount+1) % 3 == 0 && rowCount != 0){
+                    System.out.println("|"+this.Deck[cardsDealt]+"|");
+                }else{
+                    System.out.print("|"+this.Deck[cardsDealt]+"|");
+                }
+
+            }catch (Exception e){
+                break;
+            }
+            rowCount++;
+        }
     }
 
 
