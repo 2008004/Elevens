@@ -12,6 +12,7 @@ public class DeckTester {
 		String[] ranks = {"king","queen","Jack","Ace"};
 		String[] suits =  {"hearts","diamonds","clubs","spades"};
 		int[] values = {1,2,3,4,5,6,7,8,9};
-		Deck gameDeck
+		Deck gameDeck = new Deck(ranks,suits,values);
+		gameDeck.toString();
 	}
 }
