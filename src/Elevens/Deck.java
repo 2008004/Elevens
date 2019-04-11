@@ -1,6 +1,8 @@
 package Elevens;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The Deck class represents a shuffled deck of cards.
@@ -9,10 +11,14 @@ import java.util.ArrayList;
  */
 public class Deck {
 
+
+	List<Card> shuffled = new ArrayList<Card>();
+	List<Card> halfDeck = new ArrayList<Card>();
+
 	/**
 	 * cards contains all the cards in the deck.
 	 */
-	private List<Card> cards;
+	private List<Card> cards = new ArrayList<Card>();
 
 	/**
 	 * size is the number of not-yet-dealt cards.
@@ -60,9 +66,12 @@ public class Deck {
 	 * @return true if this deck is empty, false otherwise.
 	 */
 	public boolean isEmpty() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+		if (cards.isEmpty()){
+			return true;
+		}
 		return false;
 	}
+
 
 	/**
 	 * Accesses the number of undealt cards in this deck.
@@ -77,8 +86,42 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+		int counter  = 0;
+
+		System.out.println(cards);
+
+		for (int i = 0; i <size/2; i++ ){
+			halfDeck.add(cards.get(counter));
+			cards.remove(counter);
+//			System.out.println(cards);
+
+		}
+//		System.out.println(cards);
+
+		for (int i = 0; i < size/2; i++){
+			try{
+				shuffled.add(cards.get(counter));
+				shuffled.add(halfDeck.get(counter));
+
+			}catch (Exception e){
+				System.out.println(e);
+			}
+		}
+//		System.out.println(shuffled.size());
+//		System.out.println(halfDeck.size());
+//		System.out.println(cards.size());
+		System.out.println(cards);
+		System.out.println(halfDeck);
+		cards = shuffled;
+		System.out.println(cards);
 	}
+
+	public void realShuffle(){
+		Collections.shuffle(cards);
+
+
+	}
+
 
 	/**
 	 * Deals a card from this deck.
@@ -86,8 +129,10 @@ public class Deck {
 	 *         previously dealt.
 	 */
 	public Card deal() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
-		return null;
+		Card delt = cards.get(0);
+		cards.remove(0);
+		return delt;
+
 	}
 
 	/**
@@ -124,4 +169,12 @@ public class Deck {
 		rtn = rtn + "\n";
 		return rtn;
 	}
+
+	public void listCards(){
+		for (Card card:cards){
+			System.out.println(card);
+		}
+	}
+
+
 }

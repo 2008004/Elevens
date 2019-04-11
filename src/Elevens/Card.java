@@ -90,6 +90,9 @@ public class Card {
 	 */
 	@Override
 	public String toString() {
-		return rank + " of " + suit + " (point value = " + pointValue + ")";
+		if(rank == "N/A"){
+			return pointValue+" of "+suit;
+		}
+		return rank+" of "+suit;
 	}
 }
