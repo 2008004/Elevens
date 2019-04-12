@@ -26,40 +26,14 @@ public class DeckTester {
 		gameDeck.realShuffle();
 
 		//start game
-		while(!isEmpty || !boardEmpty){
+		while (!isEmpty){
+
+
+
 
 
 
 			isEmpty = gameDeck.isEmpty();
-
-
-
-			//deal and display
-			int rowCount = 0;
-			int columnCount = 0;
-
-			for (Card[] row:gameBoard){
-				for (Card column:row){
-					gameBoard[rowCount][columnCount] = gameDeck.deal();
-
-					///System.out.println(gameBoard[rowCount][columnCount].toString());
-
-					columnCount++;
-
-				}
-				columnCount = 0;
-				rowCount++;
-			}
-
-
-
-
-			List boardList = Arrays.asList(gameBoard);
-			boardEmpty = boardList.isEmpty();
-
-
-
-
 		}
 	}
 }
