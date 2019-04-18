@@ -8,6 +8,12 @@ package Elevens;
  */
 public class Card {
 
+
+	public boolean isSelected = false;
+
+
+
+
 	/**
 	 * String value that holds the suit of the card
 	 */
@@ -39,6 +45,7 @@ public class Card {
 		rank = cardRank;
 		suit = cardSuit;
 		pointValue = cardPointValue;
+		isSelected = false;
 	}
 
 
@@ -95,4 +102,10 @@ public class Card {
 		}
 		return rank+" of "+suit;
 	}
+
+
+
+
+
+
 }

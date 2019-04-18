@@ -2,6 +2,9 @@ package Elevens;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +43,9 @@ public class DeckTester {
         int rowCount = 0;
         int colCount = 0;
 
+
+        List<JButton> btnList = new ArrayList<JButton>();
+
         gameDeck.realShuffle();
         while (!isEmpty) {
             for (Card[] row : gameBoard) {
@@ -62,10 +68,42 @@ public class DeckTester {
                     if (column.pointValue() != 0){
                         ImageIcon cardImage = new ImageIcon("images/"+column.pointValue()+column.suit()+".jpg");
                         JButton a = new JButton("",cardImage);
+                        a.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                if (a.getBackground() == Color.RED){
+                                    a.setBackground(Color.WHITE);
+                                    a.setName("notSelected");
+                                    btnList.remove(a);
+                                    System.out.println(btnList);
+                                }else{
+                                    a.setBackground(Color.RED);
+                                    a.setName("selected");
+                                    btnList.add(a);
+                                    System.out.println(btnList);
+                                }
+                            }
+                        });
                         frame.add(a);
                     }else{
                         ImageIcon cardImage = new ImageIcon("images/"+column.rank()+column.suit()+".jpg");
                         JButton a = new JButton("",cardImage);
+                        a.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                if (a.getBackground() == Color.RED){
+                                    a.setBackground(Color.WHITE);
+                                    a.setName("notSelected");
+                                    btnList.remove(a);
+                                    System.out.println(btnList);
+                                }else{
+                                    a.setBackground(Color.RED);
+                                    a.setName("selected");
+                                    btnList.add(a);
+                                    System.out.println(btnList);
+                                }
+                            }
+                        });
                         frame.add(a);
                     }
 
@@ -73,11 +111,21 @@ public class DeckTester {
                 }
             }
 
+
+
+
             frame.pack();
             frame.setVisible(true);
 
 
             isEmpty = gameDeck.isEmpty();
+
+
+
+
+
+
+            //for debug
             isEmpty = true;
         }
     }
