@@ -30,7 +30,11 @@ public class Card {
 	private int pointValue;
 
 
-   /**
+	public void setPointValue(int pointValue) {
+		this.pointValue = pointValue;
+	}
+
+	/**
 	 * Creates a new <code>Card</code> instance.
 	 *
 	 * @param cardRank  a <code>String</code> value

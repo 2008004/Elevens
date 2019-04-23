@@ -44,7 +44,7 @@ public class DeckTester {
         int colCount = 0;
 
 
-        List<JButton> btnList = new ArrayList<JButton>();
+        List<Card> btnList = new ArrayList<Card>();
 
         gameDeck.realShuffle();
         while (!isEmpty) {
@@ -68,18 +68,17 @@ public class DeckTester {
                     if (column.pointValue() != 0){
                         ImageIcon cardImage = new ImageIcon("images/"+column.pointValue()+column.suit()+".jpg");
                         JButton a = new JButton("",cardImage);
+
                         a.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 if (a.getBackground() == Color.RED){
                                     a.setBackground(Color.WHITE);
-                                    a.setName("notSelected");
-                                    btnList.remove(a);
+                                    btnList.remove(column);
                                     System.out.println(btnList);
                                 }else{
                                     a.setBackground(Color.RED);
-                                    a.setName("selected");
-                                    btnList.add(a);
+                                    btnList.add(column);
                                     System.out.println(btnList);
                                 }
                             }
@@ -93,13 +92,12 @@ public class DeckTester {
                             public void actionPerformed(ActionEvent e) {
                                 if (a.getBackground() == Color.RED){
                                     a.setBackground(Color.WHITE);
-                                    a.setName("notSelected");
-                                    btnList.remove(a);
+
+                                    btnList.remove(column);
                                     System.out.println(btnList);
                                 }else{
                                     a.setBackground(Color.RED);
-                                    a.setName("selected");
-                                    btnList.add(a);
+                                    btnList.add(column);
                                     System.out.println(btnList);
                                 }
                             }
@@ -109,6 +107,9 @@ public class DeckTester {
 
 
                 }
+
+
+
             }
 
 
@@ -116,6 +117,88 @@ public class DeckTester {
 
             frame.pack();
             frame.setVisible(true);
+
+
+            while (btnList.size() != 2){
+                //wait til two cards are selected to proceed
+                try{
+                    Thread.sleep(500);
+                }catch (InterruptedException e){
+
+                }
+            }
+
+            //System.out.println("test");
+            //check values
+            try{
+                Card c1 = btnList.get(0);
+                Card c2 = btnList.get(1);
+                if (c1.rank() == "A"){
+                    c1.setPointValue(1);
+                }
+                if (c2.rank() == "A"){
+                    c2.setPointValue(1);
+                }
+                int val = c1.pointValue()+c2.pointValue();
+                if (val == 11){
+                    System.out.println("true");
+                }else {
+                    //System.out.println("false");
+                    while (btnList.size() != 3){
+                        try{
+                            Thread.sleep(500);
+                        }catch (InterruptedException ex){
+                            //nothing
+                        }
+                    }
+
+                    c1 = btnList.get(0);
+                    c2 = btnList.get(1);
+                    Card c3 = btnList.get(2);
+
+                    List<String> rlist = new ArrayList<String>();
+
+                    rlist.add(c1.rank());
+                    rlist.add(c2.rank());
+                    rlist.add(c3.rank());
+
+                    if (rlist.contains("K")){
+                        if (rlist.contains("Q")){
+                            if (rlist.contains("Q")){
+                                System.out.println("true");
+                            }
+                        }
+                    }
+                }
+            }catch (Exception e){
+            //if fail then check for KQJ
+                while (btnList.size() != 3){
+                    try{
+                        Thread.sleep(500);
+                    }catch (InterruptedException ex){
+                        //nothing
+                    }
+                }
+
+                Card c1 = btnList.get(0);
+                Card c2 = btnList.get(1);
+                Card c3 = btnList.get(2);
+
+                List<String> rlist = new ArrayList<String>();
+
+                rlist.add(c1.rank());
+                rlist.add(c2.rank());
+                rlist.add(c3.rank());
+
+                if (rlist.contains("K")){
+                    if (rlist.contains("Q")){
+                        if (rlist.contains("Q")){
+                            System.out.println("true");
+                        }
+                    }
+                }
+
+            }
 
 
             isEmpty = gameDeck.isEmpty();
