@@ -24,7 +24,7 @@ public class DeckTester {
         boolean boardEmpty = false;
         String[] ranks = {"K", "Q", "J", "A"};
         String[] suits = {"H", "D", "C", "S"};
-        int[] values = {2, 3, 4, 5, 6, 7, 8, 9};
+        int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10};
         Deck gameDeck = new Deck(ranks, suits, values);
 
         Card[][] gameBoard = new Card[3][3];
@@ -48,6 +48,9 @@ public class DeckTester {
 
         gameDeck.realShuffle();
         while (!isEmpty) {
+            btnList.clear();
+            rowCount = 0;
+            colCount = 0;
             for (Card[] row : gameBoard) {
                 for (Card column : row) {
                     if (column == null) {
@@ -65,18 +68,18 @@ public class DeckTester {
                 for (Card column : row) {
                     System.out.println(column);
 
-                    if (column.pointValue() != 0){
-                        ImageIcon cardImage = new ImageIcon("images/"+column.pointValue()+column.suit()+".jpg");
-                        JButton a = new JButton("",cardImage);
+                    if (column.pointValue() != 0) {
+                        ImageIcon cardImage = new ImageIcon("images/" + column.pointValue() + column.suit() + ".jpg");
+                        JButton a = new JButton("", cardImage);
 
                         a.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                if (a.getBackground() == Color.RED){
+                                if (a.getBackground() == Color.RED) {
                                     a.setBackground(Color.WHITE);
                                     btnList.remove(column);
                                     System.out.println(btnList);
-                                }else{
+                                } else {
                                     a.setBackground(Color.RED);
                                     btnList.add(column);
                                     System.out.println(btnList);
@@ -84,18 +87,18 @@ public class DeckTester {
                             }
                         });
                         frame.add(a);
-                    }else{
-                        ImageIcon cardImage = new ImageIcon("images/"+column.rank()+column.suit()+".jpg");
-                        JButton a = new JButton("",cardImage);
+                    } else {
+                        ImageIcon cardImage = new ImageIcon("images/" + column.rank() + column.suit() + ".jpg");
+                        JButton a = new JButton("", cardImage);
                         a.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                if (a.getBackground() == Color.RED){
+                                if (a.getBackground() == Color.RED) {
                                     a.setBackground(Color.WHITE);
 
                                     btnList.remove(column);
                                     System.out.println(btnList);
-                                }else{
+                                } else {
                                     a.setBackground(Color.RED);
                                     btnList.add(column);
                                     System.out.println(btnList);
@@ -109,45 +112,55 @@ public class DeckTester {
                 }
 
 
-
             }
-
-
 
 
             frame.pack();
             frame.setVisible(true);
 
 
-            while (btnList.size() != 2){
+            while (btnList.size() != 2) {
                 //wait til two cards are selected to proceed
-                try{
+                try {
                     Thread.sleep(500);
-                }catch (InterruptedException e){
+                } catch (InterruptedException e) {
 
                 }
             }
 
             //System.out.println("test");
             //check values
-            try{
+            try {
                 Card c1 = btnList.get(0);
                 Card c2 = btnList.get(1);
-                if (c1.rank() == "A"){
+                if (c1.rank() == "A") {
                     c1.setPointValue(1);
                 }
-                if (c2.rank() == "A"){
+                if (c2.rank() == "A") {
                     c2.setPointValue(1);
                 }
-                int val = c1.pointValue()+c2.pointValue();
-                if (val == 11){
+                int val = c1.pointValue() + c2.pointValue();
+                if (val == 11) {
                     System.out.println("true");
-                }else {
+                    rowCount = 0;
+                    colCount = 0;
+                    for (Card[] row : gameBoard) {
+                        for (Card column : row) {
+                            if (column == c1 || column == c2) {
+                                gameBoard[rowCount][colCount] = null;
+
+                            }
+                            colCount++;
+                        }
+                        colCount = 0;
+                        rowCount++;
+                    }
+                } else {
                     //System.out.println("false");
-                    while (btnList.size() != 3){
-                        try{
+                    while (btnList.size() != 3) {
+                        try {
                             Thread.sleep(500);
-                        }catch (InterruptedException ex){
+                        } catch (InterruptedException ex) {
                             //nothing
                         }
                     }
@@ -162,20 +175,20 @@ public class DeckTester {
                     rlist.add(c2.rank());
                     rlist.add(c3.rank());
 
-                    if (rlist.contains("K")){
-                        if (rlist.contains("Q")){
-                            if (rlist.contains("Q")){
+                    if (rlist.contains("K")) {
+                        if (rlist.contains("Q")) {
+                            if (rlist.contains("Q")) {
                                 System.out.println("true");
                             }
                         }
                     }
                 }
-            }catch (Exception e){
-            //if fail then check for KQJ
-                while (btnList.size() != 3){
-                    try{
+            } catch (Exception e) {
+                //if fail then check for KQJ
+                while (btnList.size() != 3) {
+                    try {
                         Thread.sleep(500);
-                    }catch (InterruptedException ex){
+                    } catch (InterruptedException ex) {
                         //nothing
                     }
                 }
@@ -190,10 +203,11 @@ public class DeckTester {
                 rlist.add(c2.rank());
                 rlist.add(c3.rank());
 
-                if (rlist.contains("K")){
-                    if (rlist.contains("Q")){
-                        if (rlist.contains("Q")){
+                if (rlist.contains("K")) {
+                    if (rlist.contains("Q")) {
+                        if (rlist.contains("J")) {
                             System.out.println("true");
+
                         }
                     }
                 }
@@ -201,15 +215,15 @@ public class DeckTester {
             }
 
 
+            frame.removeAll();
+            frame.revalidate();
+            frame.repaint();
+
             isEmpty = gameDeck.isEmpty();
 
 
-
-
-
-
             //for debug
-            isEmpty = true;
+            // isEmpty = true;
         }
     }
 }
