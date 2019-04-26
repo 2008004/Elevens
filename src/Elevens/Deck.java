@@ -27,6 +27,9 @@ public class Deck {
 	 */
 	private int size = 0;
 
+	public int getSize() {
+		return cards.size();
+	}
 
 	/**
 	 * Creates a new <code>Deck</code> instance.<BR>

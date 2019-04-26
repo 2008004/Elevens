@@ -114,7 +114,8 @@ public class DeckTester {
 
             }
 
-
+            frame.validate();
+            frame.repaint();
             frame.pack();
             frame.setVisible(true);
 
@@ -177,8 +178,20 @@ public class DeckTester {
 
                     if (rlist.contains("K")) {
                         if (rlist.contains("Q")) {
-                            if (rlist.contains("Q")) {
+                            if (rlist.contains("J")) {
                                 System.out.println("true");
+                                rowCount = 0;
+                                colCount = 0;
+                                for (Card[] row:gameBoard){
+                                    for (Card column:row){
+                                        if (column == c1 || column == c2 || column == c3){
+                                            gameBoard[rowCount][colCount] = null;
+                                        }
+                                        colCount++;
+                                    }
+                                    colCount = 0;
+                                    rowCount++;
+                                }
                             }
                         }
                     }
@@ -207,7 +220,18 @@ public class DeckTester {
                     if (rlist.contains("Q")) {
                         if (rlist.contains("J")) {
                             System.out.println("true");
-
+                            rowCount = 0;
+                            colCount = 0;
+                            for (Card[] row:gameBoard){
+                                for (Card column:row){
+                                    if (column == c1 || column == c2 || column == c3){
+                                        gameBoard[rowCount][colCount] = null;
+                                    }
+                                    colCount++;
+                                }
+                                colCount = 0;
+                                rowCount++;
+                            }
                         }
                     }
                 }
@@ -215,16 +239,26 @@ public class DeckTester {
             }
 
 
-            frame.removeAll();
-            frame.revalidate();
-            frame.repaint();
+            frame.getContentPane().removeAll();
+
 
             isEmpty = gameDeck.isEmpty();
 
 
             //for debug
-            // isEmpty = true;
+//             isEmpty = true;
+//            isEmpty = false;
+            System.out.println(gameDeck.getSize());
         }
+
+        System.out.println("WIN");
+        frame.getContentPane().removeAll();
+        Label a = new Label("you win!");
+        a.setFont(new Font("Serif", Font.PLAIN, 250));
+        frame.add(a);
+        frame.validate();
+        frame.pack();
+
     }
 }
 
